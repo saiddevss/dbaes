@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veri Giriş Formu</title>
+</head>
+<body>
+    <h1>Veri Girin</h1>
+    <form id="dataForm">
+        <input type="text" name="data" placeholder="Verinizi girin" required>
+        <button type="submit">Kaydet</button>
+    </form>
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const data = new FormData(event.target).get('data');
+            
+            await fetch('/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data }),
+            });
+            alert('Veri kaydedildi!');
+            event.target.reset();
+        });
+    </script>
+</body>
+</html>
